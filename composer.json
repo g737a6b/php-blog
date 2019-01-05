@@ -1,0 +1,27 @@
+{
+	"name": "g737a6b/php-blog",
+	"description": "PHP blog library.",
+	"keywords": ["blog"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Hiroyuki Suzuki",
+			"homepage": "https://mofg.net"
+		}
+	],
+	"support": {
+		"source": "https://github.com/g737a6b/php-blog",
+		"issues": "https://github.com/g737a6b/php-blog/issues"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^7"
+	},
+	"autoload": {
+		"psr-4": {
+			"BlogLite\\": "src/"
+		}
+	},
+	"scripts": {
+		"tests": "phpunit tests/"
+	}
+}
