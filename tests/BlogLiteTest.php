@@ -7,7 +7,7 @@ use BlogLite\BlogLite;
 class BlogLiteTest extends TestCase{
 	protected $BlogLite;
 
-	protected function setUp(){
+	protected function setUp() : void{
 		$this->BlogLite = new BlogLite([
 			"sample-article-1" => [
 				"title" => "Sample article 1"
