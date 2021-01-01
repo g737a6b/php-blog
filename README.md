@@ -1,4 +1,4 @@
-# BlogLite [![CircleCI](https://circleci.com/gh/g737a6b/php-blog.svg?style=svg)](https://circleci.com/gh/g737a6b/php-blog)
+# BlogLite ![main](https://github.com/g737a6b/php-blog/workflows/main/badge.svg)
 
 PHP blog library.
 
