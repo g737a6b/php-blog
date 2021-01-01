@@ -6,9 +6,8 @@ namespace BlogLite;
  *
  * @package BlogLite
  * @author Hiroyuki Suzuki
- * @copyright Copyright (c) 2019 Hiroyuki Suzuki mofg.net
+ * @copyright Copyright (c) 2021 Hiroyuki Suzuki mofg.net
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 0.1.0
  */
 class BlogLite{
 	/**
