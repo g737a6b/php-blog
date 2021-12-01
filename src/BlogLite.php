@@ -25,7 +25,7 @@ class BlogLite{
 	/**
 	 * @var string
 	 */
-	public $contentDir = "PATH/TO/.md";
+	public $contentDir = "PATH/TO/.md/FILES";
 
 	/**
 	 * @var string
@@ -36,33 +36,33 @@ class BlogLite{
 	 * @param array $articles (optional)
 	 * @param string $contentDir (optional)
 	 */
-	public function __construct($articles = [], $contentDir = ""){
+	public function __construct(array $articles = [], string $contentDir = ""){
 		$this->articles = $articles;
 		$this->contentDir = $contentDir;
 	}
 
 	/**
-	 * @return integer
+	 * @return int
 	 */
-	public function articleCount(){
+	public function articleCount() : int{
 		return count($this->articles);
 	}
 
 	/**
-	 * @param integer $parpage (optional)
-	 * @return integer
+	 * @param int $parpage (optional)
+	 * @return int
 	 */
-	public function maxPage($parpage = 10){
+	public function maxPage(int $parpage = 10) : int{
 		return intval(ceil(count($this->articles) / $parpage));
 	}
 
 	/**
-	 * @param integer $current (optional)
-	 * @param integer $parpage (optional)
-	 * @param integer $width (optional)
+	 * @param int $current (optional)
+	 * @param int $parpage (optional)
+	 * @param int $width (optional)
 	 * @return array
 	 */
-	public function navPages($current = 1, $parpage = 10, $width = 10){
+	public function navPages(int $current = 1, int $parpage = 10, int $width = 10) : array{
 		$min = 1;
 		$max = $this->maxPage($parpage);
 		if( $current < $min || $current > $max ) return [];
@@ -88,14 +88,14 @@ class BlogLite{
 	}
 
 	/**
-	 * @param integer $page (optional)
-	 * @param integer $parpage (optional)
-	 * @param boolean $onlyIds (optional)
+	 * @param int $page (optional)
+	 * @param int $parpage (optional)
+	 * @param bool $onlyIds (optional)
 	 * @return array
 	 */
-	public function articleList($page = 1, $parpage = 10, $onlyIds = false){
+	public function articleList(int $page = 1, int $parpage = 10, bool $onlyIds = false) : array{
 		$articles = array_slice($this->articles, ($page - 1) * $parpage, $parpage);
-		return ( $onlyIds ) ? array_keys($articles) : $articles;
+		return $onlyIds ? array_keys($articles) : $articles;
 	}
 
 	/**
@@ -103,16 +103,16 @@ class BlogLite{
 	 * @param string $info (optional)
 	 * @return mixed
 	 */
-	public function article($id, $info = "*"){
-		if( empty($this->articles[$id]) ) return false;
+	public function article(string $id, string $info = "*"){
+		if( empty($this->articles[$id]) ) return null;
 		if( $info === "*" ) return $this->articles[$id];
-		return ( isset($this->articles[$id][$info]) ) ? $this->articles[$id][$info] : "";
+		return ( isset($this->articles[$id][$info]) ) ? $this->articles[$id][$info] : null;
 	}
 
 	/**
 	 * @param string $id
 	 */
-	public function setId($id){
+	public function setId(string $id) : void{
 		$this->articleId = $id;
 	}
 
@@ -120,18 +120,18 @@ class BlogLite{
 	 * @param string $info (optional)
 	 * @return mixed
 	 */
-	public function info($info = "*"){
+	public function info(string $info = "*"){
 		return $this->article($this->articleId, $info);
 	}
 
 	/**
 	 * @param string $id
-	 * @return string
+	 * @return string|null
 	 */
-	public function content($id){
-		if( empty($this->articles[$id]) ) return false;
+	public function content(string $id) : ?string{
+		if( empty($this->articles[$id]) ) return null;
 		$file = rtrim($this->contentDir, "/")."/{$id}.md";
-		if( !file_exists($file) ) return false;
+		if( !file_exists($file) ) return null;
 		return file_get_contents($file);
 	}
 }

@@ -13,7 +13,8 @@ class BlogLiteTest extends TestCase{
 				"title" => "Sample article 1"
 			],
 			"sample-article-2" => [
-				"title" => "Sample article 2"
+				"title" => "Sample article 2",
+				"foo" => "val"
 			],
 			"sample-article-3" => [
 				"title" => "Sample article 3"
@@ -74,11 +75,17 @@ class BlogLiteTest extends TestCase{
 		$this->assertSame(["sample-article-3"], $this->BlogLite->articleList(3, 1, true));
 	}
 
-	public function testSetId(){
+	public function testArticleInfo(){
 		$this->BlogLite->setId("sample-article-3");
 		$this->assertSame("Sample article 3", $this->BlogLite->info("title"));
-		$this->assertSame("", $this->BlogLite->info("undefined"));
+		$this->assertNull($this->BlogLite->info("undefined"));
 		$this->BlogLite->setId("sample-article-6");
+		$this->assertSame("Sample article 6", $this->BlogLite->info("title"));
+		$this->assertSame("Sample article 2", $this->BlogLite->article("sample-article-2", "title"));
+		$this->assertSame([
+			"title" => "Sample article 2",
+			"foo" => "val"
+		], $this->BlogLite->article("sample-article-2"));
 		$this->assertSame("Sample article 6", $this->BlogLite->info("title"));
 	}
 }
