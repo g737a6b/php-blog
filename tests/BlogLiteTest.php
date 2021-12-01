@@ -46,7 +46,7 @@ class BlogLiteTest extends TestCase{
 			"sample-article-12" => [
 				"title" => "Sample article 12"
 			]
-		], "");
+		]);
 	}
 
 	public function testArticleCount(){
@@ -87,5 +87,20 @@ class BlogLiteTest extends TestCase{
 			"foo" => "val"
 		], $this->BlogLite->article("sample-article-2"));
 		$this->assertSame("Sample article 6", $this->BlogLite->info("title"));
+	}
+
+	public function testContent(){
+		$data = [
+			"sample-id" => [
+				"foo" => "val"
+			]
+		];
+		$dir = __DIR__ . "/articles";
+		$BlogLite = new BlogLite($data, $dir);
+
+		$expected = file_get_contents($dir . "/sample-id.md");
+		$this->assertSame($expected, $BlogLite->content("sample-id"));
+
+		$this->assertNull($BlogLite->content("undefined-id"));
 	}
 }
