@@ -13,7 +13,8 @@ class BlogLiteTest extends TestCase{
 				"title" => "Sample article 1"
 			],
 			"sample-article-2" => [
-				"title" => "Sample article 2"
+				"title" => "Sample article 2",
+				"foo" => "val"
 			],
 			"sample-article-3" => [
 				"title" => "Sample article 3"
@@ -45,7 +46,7 @@ class BlogLiteTest extends TestCase{
 			"sample-article-12" => [
 				"title" => "Sample article 12"
 			]
-		], "");
+		]);
 	}
 
 	public function testArticleCount(){
@@ -74,11 +75,32 @@ class BlogLiteTest extends TestCase{
 		$this->assertSame(["sample-article-3"], $this->BlogLite->articleList(3, 1, true));
 	}
 
-	public function testSetId(){
+	public function testArticleInfo(){
 		$this->BlogLite->setId("sample-article-3");
 		$this->assertSame("Sample article 3", $this->BlogLite->info("title"));
-		$this->assertSame("", $this->BlogLite->info("undefined"));
+		$this->assertNull($this->BlogLite->info("undefined"));
 		$this->BlogLite->setId("sample-article-6");
 		$this->assertSame("Sample article 6", $this->BlogLite->info("title"));
+		$this->assertSame("Sample article 2", $this->BlogLite->article("sample-article-2", "title"));
+		$this->assertSame([
+			"title" => "Sample article 2",
+			"foo" => "val"
+		], $this->BlogLite->article("sample-article-2"));
+		$this->assertSame("Sample article 6", $this->BlogLite->info("title"));
+	}
+
+	public function testContent(){
+		$data = [
+			"sample-id" => [
+				"foo" => "val"
+			]
+		];
+		$dir = __DIR__ . "/articles";
+		$BlogLite = new BlogLite($data, $dir);
+
+		$expected = file_get_contents($dir . "/sample-id.md");
+		$this->assertSame($expected, $BlogLite->content("sample-id"));
+
+		$this->assertNull($BlogLite->content("undefined-id"));
 	}
 }
