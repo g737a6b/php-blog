@@ -23,8 +23,5 @@
 		"psr-4": {
 			"BlogLite\\": "src/"
 		}
-	},
-	"scripts": {
-		"tests": "phpunit tests/"
 	}
 }
