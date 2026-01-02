@@ -71,31 +71,31 @@ class BlogLite
     {
         $min = 1;
         $max = $this->maxPage($parpage);
-        if($current < $min || $current > $max) {
+        if ($current < $min || $current > $max) {
             return [];
         }
         $prepend = [];
         $append = [];
-        for($i = $width; $i > 0; $i--) {
+        for ($i = $width; $i > 0; $i--) {
             $page = $current - $i;
-            if($page >= $min) {
+            if ($page >= $min) {
                 $prepend[] = $page;
             }
         }
-        for($i = 1; $i <= $width; $i++) {
+        for ($i = 1; $i <= $width; $i++) {
             $page = $current + $i;
-            if($page <= $max) {
+            if ($page <= $max) {
                 $append[] = $page;
             }
         }
-        if($width < 1) {
+        if ($width < 1) {
             return [$current];
         }
-        while(true) {
-            if(count($prepend) + count($append) + 1 <= $width) {
+        while (true) {
+            if (count($prepend) + count($append) + 1 <= $width) {
                 break;
             }
-            if(count($prepend) >= count($append)) {
+            if (count($prepend) >= count($append)) {
                 array_shift($prepend);
             } else {
                 array_pop($append);
@@ -123,10 +123,10 @@ class BlogLite
      */
     public function article(string $id, string $info = "*")
     {
-        if(empty($this->articles[$id])) {
+        if (empty($this->articles[$id])) {
             return null;
         }
-        if($info === "*") {
+        if ($info === "*") {
             return $this->articles[$id];
         }
         return (isset($this->articles[$id][$info])) ? $this->articles[$id][$info] : null;
@@ -155,11 +155,11 @@ class BlogLite
      */
     public function content(string $id): ?string
     {
-        if(empty($this->articles[$id])) {
+        if (empty($this->articles[$id])) {
             return null;
         }
         $file = rtrim($this->contentDir, "/")."/{$id}.md";
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             return null;
         }
         return file_get_contents($file);
