@@ -88,6 +88,9 @@ class BlogLite
                 $append[] = $page;
             }
         }
+        if($width < 1) {
+            return [$current];
+        }
         while(true) {
             if(count($prepend) + count($append) + 1 <= $width) {
                 break;
